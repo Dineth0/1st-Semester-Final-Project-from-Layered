@@ -178,13 +178,6 @@ public class MarkAttendanceController implements Initializable {
             btnupdate.setDisable(false);
         }
     }
-
-//    String LaborID = comlaborId.getValue();
-//    String SupervisorID = comsupId.getValue();
-
-//        System.out.println(LaborID);
-//        System.out.println(SupervisorID);
-
     @FXML
     void test(ActionEvent event) {
 
