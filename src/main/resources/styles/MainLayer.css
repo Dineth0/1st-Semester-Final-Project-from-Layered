@@ -1,0 +1,28 @@
+.dashboard:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.labor:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.equipment:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.retirement:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.payment:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.accident:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.complaint:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
