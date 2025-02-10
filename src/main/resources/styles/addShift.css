@@ -1,0 +1,28 @@
+.save:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.delete:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.reset:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.update:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.table-row-cell
+{
+    -fx-background-color:linear-gradient(from 0% 0% to 100% 100%, white 0%, #6A9AB0 50%, white 100%);
+}
+.table-row-cell:selected
+{
+    -fx-background-color:linear-gradient(from 0% 0% to 100% 100%, white 0%, #3A6D8C 50%, white 100%);
+}
+.table-row-cell:selected .table-cell
+{
+    -fx-text-fill: black !important;
+}
