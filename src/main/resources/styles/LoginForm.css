@@ -1,0 +1,5 @@
+.login:hover
+{
+    -fx-background-color: #77CDFF;
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
