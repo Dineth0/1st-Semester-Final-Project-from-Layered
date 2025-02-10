@@ -1,0 +1,63 @@
+
+.table-row-cell
+{
+    -fx-background-color:linear-gradient(from 0% 0% to 100% 100%, white 0%, #CB6040 50%, white 100%);
+}
+.table-row-cell:selected
+{
+    -fx-background-color:linear-gradient(from 0% 0% to 100% 100%, white 0%, #FF9874 50%, white 100%);
+}
+.table-row-cell:selected .table-cell
+{
+    -fx-text-fill: black !important;
+}
+.labor:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.attendance:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.shift:hover
+{
+    -fx-background-color: #C4D7FF ;
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.leave:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.training:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.unionmember:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.laborReport:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.attendanceReport:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.shiftReport:hover
+{
+    -fx-background-color: #C4D7FF ;
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.leaveReport:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.trainingReport:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.unionmemberReport:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}

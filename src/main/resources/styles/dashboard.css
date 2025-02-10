@@ -1,0 +1,40 @@
+.seeLabor:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeAttendance:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeshift:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seepayment:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeleaves:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeaccident:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeretirement:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.seeinsurance:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.officer:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
+.supervisor:hover
+{
+    -fx-effect: dropshadow(gaussian,#6495ED,20,0.0,0,0);
+}
