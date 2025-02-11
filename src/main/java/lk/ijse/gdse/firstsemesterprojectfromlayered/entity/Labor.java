@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @ToString
 
-public class Labor implements Serializable {
+public class Labor {
     private String LaborID;
     private String Name;
     private int Age;

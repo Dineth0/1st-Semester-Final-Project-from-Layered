@@ -56,9 +56,9 @@ public class AttendanceDAOImpl implements AttendanceDAO {
 
     @Override
     public int getWorkingDays(String LaborID, int month, int year) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT count(*) as WorkingDays FROM Attendance WHERE LaborID = ? AND MONTH(Date) = ? AND YEAR(Date) = ? AND status = 'Present'", LaborID, month, year);
+        ResultSet rst = SQLUtil.execute("SELECT count(*) as WorkingDays FROM Attendance WHERE LaborID = ? AND MONTH(Date) = ? AND YEAR(Date) = ? AND Status = 'Present'", LaborID, month, year);
         if (rst.next()) {
-            return rst.getInt("WorkingDays");
+            return rst.getInt(1);
         }
         return 0;
     }

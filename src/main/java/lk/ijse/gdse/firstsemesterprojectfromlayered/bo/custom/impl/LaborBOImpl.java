@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class LaborBOImpl implements LaborBO {
-
     LaborDAO laborDAO = (LaborDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.LABOR);
 
     @Override
-    public LaborDTO findById(String ID) throws SQLException, ClassNotFoundException {
+    public LaborDTO  findById(String ID) throws SQLException, ClassNotFoundException {
         Labor labor = laborDAO.findById(ID);
         return new LaborDTO(labor.getLaborID(),labor.getName(),labor.getAge(),labor.getAddress(),labor.getContactNumber());
     }
@@ -24,29 +23,19 @@ public class LaborBOImpl implements LaborBO {
         return laborDAO.getAllLaborIDs();
     }
 
-//    @Override
-//    public int getWorkingDays(String LaborID, int month, int year) throws SQLException, ClassNotFoundException {
-//        return laborDAO.getWorkingDays(LaborID, month, year);
-//    }
-
     @Override
     public int getTotalLabors() throws SQLException, ClassNotFoundException {
         return laborDAO.getTotalLabors();
     }
 
-//    @Override
-//    public int getTotalOvertTime(String LaborID, int month, int year) throws SQLException, ClassNotFoundException {
-//        return laborDAO.getTotalOvertTime(LaborID, month, year);
-//    }
-
     @Override
-    public boolean save(LaborDTO laborDTO) throws SQLException, ClassNotFoundException {
-        return laborDAO.save(new Labor(laborDTO.getLaborID(),laborDTO.getName(),laborDTO.getAge(),laborDTO.getAddress(),laborDTO.getContactNumber()));
+    public boolean save(LaborDTO entity) throws SQLException, ClassNotFoundException {
+        return laborDAO.save(new Labor(entity.getLaborID(),entity.getName(),entity.getAge(),entity.getAddress(),entity.getContactNumber()));
     }
 
     @Override
-    public boolean update(LaborDTO laborDTO) throws SQLException, ClassNotFoundException {
-        return laborDAO.update(new Labor(laborDTO.getLaborID(),laborDTO.getName(),laborDTO.getAge(),laborDTO.getAddress(),laborDTO.getContactNumber()));
+    public boolean update(LaborDTO entity) throws SQLException, ClassNotFoundException {
+        return laborDAO.update(new Labor(entity.getLaborID(),entity.getName(),entity.getAge(),entity.getAddress(),entity.getContactNumber()));
     }
 
     @Override
@@ -68,6 +57,4 @@ public class LaborBOImpl implements LaborBO {
     public String getNextID() throws SQLException, ClassNotFoundException {
         return laborDAO.getNextID();
     }
-
-
 }

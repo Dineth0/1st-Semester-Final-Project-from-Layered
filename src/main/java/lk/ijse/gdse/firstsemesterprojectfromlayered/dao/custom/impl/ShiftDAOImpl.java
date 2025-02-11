@@ -60,7 +60,7 @@ public class ShiftDAOImpl implements ShiftDAO {
         int OverTime = 0;
         ResultSet rst = SQLUtil.execute( "SELECT SUM(OverTime) as TotalOverTime from Shift where LaborID = ? AND Month(Date) = ? AND Year(Date) = ?", LaborID, month, year);
         if (rst.next()) {
-            return rst.getInt("TotalOverTime");
+            return rst.getInt(1);
         }
         return 0;
     }

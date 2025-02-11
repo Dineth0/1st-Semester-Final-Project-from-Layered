@@ -233,10 +233,9 @@ public class AddPaymentController implements Initializable {
         String Name = lbllaborname.getText();
         String OfficerID = comofficerId.getValue();
         double Day_Basic_Salary = Double.parseDouble(txtdbs.getText());
-        //String Monthly_Total_Salary = txtmts.getText();
         String Status = comstatus.getValue();
 
-        int workingDays = Integer.parseInt(lblworkingdays.getText());
+        int workingDays = Integer.parseInt((lblworkingdays.getText()));
         int OverTime = Integer.parseInt(lblovertime.getText());
 
         double firstTotal = Day_Basic_Salary * workingDays;

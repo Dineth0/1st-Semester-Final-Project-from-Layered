@@ -12,9 +12,9 @@ public class LaborDAOImpl implements LaborDAO {
 
 
     @Override
-    public Labor findById(String ID) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * from Labor where LaborID=?", ID);
-        if (rst.next()) {
+    public Labor findById(String ID) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * from Labor where LaborID=?",ID);
+        if (rst.next()){
             return new Labor(
                     rst.getString(1),
                     rst.getString(2),
@@ -29,10 +29,13 @@ public class LaborDAOImpl implements LaborDAO {
     @Override
     public ArrayList<String> getAllLaborIDs() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT LaborID from Labor");
+
         ArrayList<String> LaborIDs = new ArrayList<>();
-        while (rst.next()) {
+
+        while (rst.next()){
             LaborIDs.add(rst.getString(1));
         }
+
         return LaborIDs;
     }
 
@@ -48,43 +51,63 @@ public class LaborDAOImpl implements LaborDAO {
 
     @Override
     public boolean save(Labor entity) throws SQLException, ClassNotFoundException {
-        boolean isSaved = SQLUtil.execute("insert into Labor values (?,?,?,?,?)", entity.getLaborID(), entity.getName(), entity.getAge(), entity.getAddress(), entity.getContactNumber());
+        boolean isSaved = SQLUtil.execute(
+                "insert into Labor values (?,?,?,?,?)",
+                entity.getLaborID(),
+                entity.getName(),
+                entity.getAge(),
+                entity.getAddress(),
+                entity.getContactNumber()
+        );
         return isSaved;
     }
 
     @Override
     public boolean update(Labor entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("update Labor set  Name=?, Age=?, Address=?,ContactNumber=? where LaborID=?", entity.getName(), entity.getAge(), entity.getAddress(), entity.getContactNumber(), entity.getLaborID());
+        return SQLUtil.execute(
+                "update Labor set  Name=?, Age=?, Address=?,ContactNumber=? where LaborID=?",
+                entity.getName(),
+                entity.getAge(),
+                entity.getAddress(),
+                entity.getContactNumber(),
+                entity.getLaborID()
+        );
     }
 
     @Override
     public boolean delete(String ID) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute("delete from Labor where LaborID=?", ID);
+        return SQLUtil.execute("delete from Labor where LaborID=?",ID);
+
     }
 
     @Override
-    public ArrayList<Labor> getAll() throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * from Labor");
+    public ArrayList<Labor> getAll() throws SQLException, ClassNotFoundException {
+        ResultSet rst =  SQLUtil.execute("SELECT * from Labor");
+
         ArrayList<Labor> laborArrayList = new ArrayList<>();
-        while (rst.next()) {
-            laborArrayList.add(new Labor(
+
+        while (rst.next()){
+            laborArrayList.add( new Labor(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getInt(3),
                     rst.getString(4),
-                    rst.getString(5)));
+                    rst.getString(5)
+            ));
         }
         return laborArrayList;
     }
 
     @Override
-    public String getNextID() throws SQLException {
+    public String getNextID() throws SQLException, ClassNotFoundException {
         ResultSet rst =  SQLUtil.execute("SELECT LaborID from Labor order by LaborID desc limit 1");
+
         if (rst.next()){
             String lastId = rst.getString(1);
             String substring = lastId.substring(1);
             int i = Integer.parseInt(substring);
             int newIdIndex = i+1;
+
             return String.format("L%03d",newIdIndex);
         }
         return  "L001";

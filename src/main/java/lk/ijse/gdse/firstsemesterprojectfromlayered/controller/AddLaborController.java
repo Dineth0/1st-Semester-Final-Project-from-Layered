@@ -33,19 +33,19 @@ public class AddLaborController implements Initializable {
     private Button btnupdate;
 
     @FXML
-    private TableColumn<LaborTM,String> coladdress;
+    private TableColumn<LaborTM, String> coladdress;
 
     @FXML
-    private TableColumn<LaborTM,Integer> colage;
+    private TableColumn<LaborTM, Integer> colage;
 
     @FXML
-    private TableColumn<LaborTM,Integer> colconnumber;
+    private TableColumn<LaborTM, Integer> colconnumber;
 
     @FXML
-    private TableColumn<LaborTM,String> colid;
+    private TableColumn<LaborTM, String> colid;
 
     @FXML
-    private TableColumn<LaborTM,String> colname;
+    private TableColumn<LaborTM, String> colname;
 
     @FXML
     private TableView<LaborTM> labortable;
@@ -74,16 +74,14 @@ public class AddLaborController implements Initializable {
         colage.setCellValueFactory(new PropertyValueFactory<>("Age"));
         coladdress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         colconnumber.setCellValueFactory(new PropertyValueFactory<>("ContactNumber"));
-
         try {
-           loadNextLaborID();
-          loadTableData();
-         refreshPage();
+            loadNextLaborID();
+            loadTableData();
+            refreshPage();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
 
 
     void refreshPage() throws SQLException, ClassNotFoundException {
@@ -101,30 +99,34 @@ public class AddLaborController implements Initializable {
     }
 
     void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<LaborDTO> allCustomer = laborBO.getAll();
-        for (LaborDTO dto:allCustomer) {
-            labortable.getItems().add(
-                    new LaborTM(
-                            dto.getLaborID(),
-                            dto.getName(),
-                            dto.getAge(),
-                            dto.getAddress(),
-                            dto.getContactNumber()));
+        ArrayList<LaborDTO> laborDtos = laborBO.getAll();
 
+        ObservableList<LaborTM> laborTMS = FXCollections.observableArrayList();
+
+        for (LaborDTO laborDto : laborDtos) {
+            LaborTM laborTM = new LaborTM(
+                    laborDto.getLaborID(),
+                    laborDto.getName(),
+                    laborDto.getAge(),
+                    laborDto.getAddress(),
+                    laborDto.getContactNumber()
+            );
+            laborTMS.add(laborTM);
         }
+        labortable.setItems(laborTMS);
     }
 
 
     @FXML
     void DeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String ID = lblLaborId.getText();
+        String LaborID = lblLaborId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDelete = laborBO.delete(ID);
+            boolean isDelete = laborBO.delete(LaborID);
             if (isDelete) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Labor deleted...!").show();
@@ -143,7 +145,6 @@ public class AddLaborController implements Initializable {
 
     @FXML
     void SaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-    try{
         String LaborID = lblLaborId.getText();
         String Name = txtname.getText();
         int Age = Integer.parseInt(txtage.getText());
@@ -162,52 +163,59 @@ public class AddLaborController implements Initializable {
 
 
         boolean isValidName = Name.matches(NamePattern);
+
         boolean isValidAddress = Address.matches(AddressPattern);
         boolean isValiContanctNumber = ContactNumber.matches(ContactNumberPattern);
+
 
         if (!isValidName) {
             System.out.println(txtname.getStyle());
             txtname.setStyle(txtname.getStyle() + ";-fx-border-color: red;");
             System.out.println("Invalid name.............");
+
         }
+
+
         if (!isValiContanctNumber) {
             txtconnumber.setStyle(txtconnumber.getStyle() + ";-fx-border-color: red;");
         }
+
+
         if (isValidName && isValidAddress && isValiContanctNumber) {
-            LaborDTO laborDTO = new LaborDTO(
+            LaborDTO laborDto = new LaborDTO(
                     LaborID,
                     Name,
                     Age,
                     Address,
                     ContactNumber
             );
-            boolean isSaved = laborBO.save(laborDTO);
+
+            boolean isSaved = laborBO.save(laborDto);
+
+
             if (isSaved) {
+
                 refreshPage();
+
                 new Alert(Alert.AlertType.INFORMATION, "Labor saved...!").show();
             } else {
-                refreshPage();
+                new Alert(Alert.AlertType.ERROR, "Fail to save Labor...!").show();
             }
         }
-    }catch (SQLException e){
-        new Alert(Alert.AlertType.ERROR, "Fail to save Labor...!").show();
-    }catch (ClassNotFoundException e){
-    e.printStackTrace();
-    }
+
     }
 
 
     @FXML
-    void UpdateOnAction(ActionEvent event)  {
+    void UpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        try {
         String LaborID = lblLaborId.getText();
         String Name = txtname.getText();
         int Age = Integer.parseInt(txtage.getText());
         String Address = txtaddress.getText();
         String ContactNumber = txtconnumber.getText();
 
-        LaborDTO laborDTO = new LaborDTO(
+        LaborDTO laborDto = new LaborDTO(
                 LaborID,
                 Name,
                 Age,
@@ -215,26 +223,20 @@ public class AddLaborController implements Initializable {
                 ContactNumber
         );
 
-        boolean isUpdate = laborBO.update(laborDTO);
-
-
+        boolean isUpdate = laborBO.update(laborDto);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Labor Updated...!").show();
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to Update Labor...!").show();
         }
-    }catch (SQLException e) {
-        new Alert(Alert.AlertType.ERROR, "Labor Not found").show();
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+
     }
 
 
     @FXML
     void onTableClicked(MouseEvent event) {
-        LaborTM laborTM = (LaborTM) labortable.getSelectionModel().getSelectedItem();
+        LaborTM laborTM = labortable.getSelectionModel().getSelectedItem();
         if (laborTM != null) {
             lblLaborId.setText(laborTM.getLaborID());
             txtname.setText(laborTM.getName());
@@ -248,14 +250,10 @@ public class AddLaborController implements Initializable {
         }
     }
 
-    private void loadNextLaborID()  {
-        try{
+    private void loadNextLaborID() throws SQLException, ClassNotFoundException {
         String nextLaborID = laborBO.getNextID();
-       lblLaborId.setText(nextLaborID);
-    }catch (SQLException | ClassNotFoundException e) {
-        new Alert(Alert.AlertType.ERROR, "Labor Not found").show();
-        }
-    }
+        lblLaborId.setText(nextLaborID);
 
+    }
 }
 
