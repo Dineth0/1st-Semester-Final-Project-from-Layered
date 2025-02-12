@@ -19,11 +19,15 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.BOFactory;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.RetirementBO;
+import lk.ijse.gdse.firstsemesterprojectfromlayered.db.DbConnection;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.dto.RetirementDTO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.tm.RetirementTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -114,6 +118,28 @@ public class RetirementController implements Initializable {
 
     @FXML
     void GenarateRetirementReportOnAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/RetirementReport.jrxml"
+                            ));
+
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        }
+
 
     }
 

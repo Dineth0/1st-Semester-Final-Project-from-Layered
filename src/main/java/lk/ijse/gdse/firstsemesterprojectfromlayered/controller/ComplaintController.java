@@ -12,11 +12,15 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.BOFactory;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.ComplaintBO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.LaborBO;
+import lk.ijse.gdse.firstsemesterprojectfromlayered.db.DbConnection;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.dto.ComplaintDTO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.dto.LaborDTO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.tm.ComplaintTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -145,6 +149,27 @@ public class ComplaintController  implements Initializable {
 
     @FXML
     void GenerateComplaintReportOnAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/ComplaintReport.jrxml"
+                            ));
+
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        }
 
     }
 

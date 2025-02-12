@@ -20,11 +20,15 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.BOFactory;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.PaymentBO;
+import lk.ijse.gdse.firstsemesterprojectfromlayered.db.DbConnection;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.dto.PaymentDTO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.tm.PaymentTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -115,7 +119,27 @@ public class PaymentController implements Initializable {
 
     @FXML
     void GeneratePaymentReportOnAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/PaymentReport.jrxml"
+                            ));
 
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        }
     }
 
     @FXML

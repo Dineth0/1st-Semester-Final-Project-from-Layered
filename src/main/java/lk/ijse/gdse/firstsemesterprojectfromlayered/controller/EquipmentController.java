@@ -18,11 +18,15 @@ import javafx.stage.Window;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.BOFactory;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.EquipmentBO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.bo.custom.EquipmentUsageBO;
+import lk.ijse.gdse.firstsemesterprojectfromlayered.db.DbConnection;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.dto.EquipmentUsageDTO;
 import lk.ijse.gdse.firstsemesterprojectfromlayered.tm.EquipmentUsageTM;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -152,12 +156,53 @@ public class EquipmentController implements Initializable {
 
     @FXML
     void GenarateEquipmentUsageReportOnAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/EquipmentUsageReport.jrxml"
+                            ));
 
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        }
     }
 
     @FXML
     void GenerateEquipmentOnAction(ActionEvent event) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass()
+                            .getResourceAsStream("/report/EquipmentReport.jrxml"
+                            ));
 
+            Connection connection = DbConnection.getInstance().getConnection();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    null,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to generate report...!").show();
+//           e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "DB error...!").show();
+        }
+    }
     }
 
-}
+

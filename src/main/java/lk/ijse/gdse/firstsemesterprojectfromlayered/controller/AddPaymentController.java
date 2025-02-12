@@ -146,10 +146,10 @@ public class AddPaymentController implements Initializable {
             int currentYear = LocalDate.now().getYear();
 
             int workingDays = attendanceBO.getWorkingDays(selectedLaborID, currentMonth, currentYear);
-            lblworkingdays.setText(String.valueOf(workingDays));
+            lblworkingdays.setText(String.valueOf(Integer.valueOf(workingDays)));
 
             int OverTime = shiftBO.getTotalOvertTime(selectedLaborID, currentMonth, currentYear);
-            lblovertime.setText(String.valueOf(OverTime));
+            lblovertime.setText(String.valueOf(Integer.valueOf(OverTime)));
         }
     }
 

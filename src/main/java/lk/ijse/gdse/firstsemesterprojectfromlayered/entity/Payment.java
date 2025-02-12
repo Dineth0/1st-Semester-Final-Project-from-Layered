@@ -17,6 +17,5 @@ public class Payment {
     private String Status;
 
 
-    public Payment(String paymentID, String laborID, String officerID, double dayBasicSalary, double monthlyTotalSalary, String status) {
-    }
+
 }

@@ -16,6 +16,8 @@ public class PaymentDTO {
     private double Monthly_Total_Salary;
     private String Status;
 
-    public PaymentDTO(String paymentID, String laborID, String name, String officerID, String dayBasicSalary, String status) {
+
+
+    public PaymentDTO(String paymentID, String laborID, String name, String officerID, double dayBasicSalary, String status) {
     }
 }
